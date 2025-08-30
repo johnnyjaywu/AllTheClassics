@@ -1,0 +1,16 @@
+{
+    "name": "ContentContent.SceneManagement",
+    "rootNamespace": "ContentContent.SceneManagement",
+    "references": [
+        "GUID:135236e3a8588e24ebbaa763b87fb6f1"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
