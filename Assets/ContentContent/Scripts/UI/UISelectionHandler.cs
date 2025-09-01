@@ -7,6 +7,7 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using UnityEngine.UIElements.InputSystem;
 
 namespace ContentContent.UI
 {
@@ -19,20 +20,23 @@ namespace ContentContent.UI
 
 		[ContextMenuItem("Find Selectables in children", "FindAllSelectablesInChildren")]
 		[Tooltip("Reference all <Selectable> elements that you want to be able to navigate to")]
-		[SerializeField] protected List<Selectable> m_selectables = new List<Selectable>();
+		[SerializeField] protected List<Selectable> selectables = new List<Selectable>();
 
-		[Tooltip("The first selected element")]
-		[SerializeField] protected Selectable m_firstSelected;
+		[Tooltip("The first selected element for this menu, default to first item in the referenced list")]
+		[SerializeField] protected Selectable firstSelected;
 
 		[Tooltip("The input action we are listening to (i.e. UI/Navigate)")]
-		[SerializeField] protected InputActionReference m_inputActionReference;
+		[SerializeField] protected InputActionReference inputActionReference;
 
-		protected Selectable _lastSelected;
+		protected Selectable lastSelected;
 
 		public virtual void Awake()
 		{
-			_lastSelected = m_firstSelected;
-			foreach (var selectable in m_selectables)
+			if (firstSelected == null)
+				firstSelected = selectables.Count > 0 ? selectables[0] : null;
+
+			lastSelected = firstSelected;
+			foreach (var selectable in selectables)
 			{
 				AddSelectionListeners(selectable);
 			}
@@ -40,19 +44,25 @@ namespace ContentContent.UI
 
 		public virtual void OnEnable()
 		{
-			m_inputActionReference.action.performed += InputAction_Performed;
-			StartCoroutine(SelectAfterDelay());
+			inputActionReference.action.performed += InputAction_Performed;
+			StartCoroutine(SelectAfterDelay(firstSelected.gameObject));
 		}
 
-		protected virtual IEnumerator SelectAfterDelay()
+		protected virtual IEnumerator SelectAfterDelay(GameObject target)
 		{
 			yield return null;
-			EventSystem.current.SetSelectedGameObject(m_firstSelected.gameObject);
+			if (target !=  null)
+				EventSystem.current.SetSelectedGameObject(target);
 		}
 
 		public virtual void OnDisable()
 		{
-			m_inputActionReference.action.performed -= InputAction_Performed;
+			inputActionReference.action.performed -= InputAction_Performed;
+		}
+		
+		public void SetSelectedDelayed(GameObject target)
+		{
+			StartCoroutine(SelectAfterDelay(target));
 		}
 
 		protected virtual void AddSelectionListeners(Selectable selectable)
@@ -95,7 +105,7 @@ namespace ContentContent.UI
 
 		private void OnSelect(BaseEventData eventData)
 		{
-			_lastSelected = eventData.selectedObject.GetComponent<Selectable>();
+			lastSelected = eventData.selectedObject.GetComponent<Selectable>();
 		}
 
 		private void OnDeselect(BaseEventData eventData)
@@ -133,15 +143,15 @@ namespace ContentContent.UI
 
 		protected virtual void InputAction_Performed(InputAction.CallbackContext context)
 		{
-			if (EventSystem.current.currentSelectedGameObject == null && _lastSelected != null)
+			if (EventSystem.current.currentSelectedGameObject == null && lastSelected != null)
 			{
-				EventSystem.current.SetSelectedGameObject(_lastSelected.gameObject);
+				EventSystem.current.SetSelectedGameObject(lastSelected.gameObject);
 			}
 		}
 
 		private void FindAllSelectablesInChildren()
 		{
-			m_selectables = GetComponentsInChildren<Selectable>().ToList();
+			selectables = GetComponentsInChildren<Selectable>().ToList();
 		}
 	}
 }

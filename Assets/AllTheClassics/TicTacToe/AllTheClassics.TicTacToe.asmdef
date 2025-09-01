@@ -1,10 +1,9 @@
 {
-    "name": "ComfyCorner",
-    "rootNamespace": "ComfyCorner",
+    "name": "AllTheClassics.TicTacToe",
+    "rootNamespace": "AllTheClassics.TicTacToe",
     "references": [
         "GUID:135236e3a8588e24ebbaa763b87fb6f1",
-        "GUID:add06c759afaeba45a821f3113eaa5e9",
-        "GUID:cdb676f34ad860148a856d0fce2e10cf"
+        "GUID:6055be8ebefd69e48b49212b09b47b2f"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

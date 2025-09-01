@@ -169,9 +169,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fd2cdc74be36cb40a90a85cf64f48ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_selectables: []
+  m_selectables:
+  - {fileID: 2088187283}
   m_firstSelected: {fileID: 0}
-  m_inputActionReference: {fileID: 0}
+  m_inputActionReference: {fileID: -8784545083839296357, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
 --- !u!1 &140732815
 GameObject:
   m_ObjectHideFlags: 0
@@ -1443,9 +1444,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fd2cdc74be36cb40a90a85cf64f48ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_selectables: []
+  m_selectables:
+  - {fileID: 1555635319}
+  - {fileID: 847242415}
+  - {fileID: 1070123616}
+  - {fileID: 634161873}
   m_firstSelected: {fileID: 0}
-  m_inputActionReference: {fileID: 0}
+  m_inputActionReference: {fileID: -8784545083839296357, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
 --- !u!1 &783435233
 GameObject:
   m_ObjectHideFlags: 0
@@ -3057,7 +3062,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: MY GAME NAME
+  m_text: ALL THE CLASSICS
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3343,7 +3348,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fd2cdc74be36cb40a90a85cf64f48ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_selectables: []
+  m_selectables:
+  - {fileID: 900759371}
+  - {fileID: 564632867}
+  - {fileID: 649458133}
   m_firstSelected: {fileID: 0}
   m_inputActionReference: {fileID: -8784545083839296357, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
 --- !u!1 &2088187281
