@@ -18,6 +18,9 @@ namespace AllTheClassics.TicTacToe
 		[SerializeField]
 		private UnityEvent OnGameOver;
 
+		[SerializeField]
+		private bool isEndless;
+
 		private CanvasGroup canvasGroup;
 
 		private TicTacToe game;
@@ -26,17 +29,22 @@ namespace AllTheClassics.TicTacToe
 		{
 			canvasGroup = GetComponent<CanvasGroup>();
 			game = new TicTacToe();
-			Restart();
+			game.IsEndless = isEndless;
+			game.OnMarkReset += ResetMarkAt;
 
 			// Initialize Cells
 			foreach (var cell in cells)
 			{
 				cell.OnCellClicked += CellButtonClickEvent;
 			}
+
+			// Reset the board
+			Restart();
 		}
 
 		private void OnDestroy()
 		{
+			game.OnMarkReset -= ResetMarkAt;
 			foreach (var cell in cells)
 			{
 				cell.OnCellClicked -= CellButtonClickEvent;
@@ -53,10 +61,7 @@ namespace AllTheClassics.TicTacToe
 			// get index of the cell clicked to mark the board
 			// *ASSUMES the cell array is ordered top left to bottom right
 			int index = cells.IndexOf(cell);
-			game.MarkBoard(index / 3, index % 3);
-
-			// Check game
-			GameState gameState = game.CheckGame();
+			GameState gameState = game.MarkBoard(index);
 
 			// Game still going
 			if (gameState == GameState.Ongoing)
@@ -81,15 +86,12 @@ namespace AllTheClassics.TicTacToe
 			}
 			else
 			{
-				statusText.text = gameState == GameState.OWon ? "O Won!": "X Won!";
-				
+				statusText.text = gameState == GameState.OWon ? "O Won!" : "X Won!";
+
 				// Highlight winning positions
-				int cell0 = (int)(game.WinningLine[0].x * 3 + game.WinningLine[0].y);
-				int cell1 = (int)(game.WinningLine[1].x * 3 + game.WinningLine[1].y);
-				int cell2 = (int)(game.WinningLine[2].x * 3 + game.WinningLine[2].y);
-				cells[cell0].Highlight();
-				cells[cell1].Highlight();
-				cells[cell2].Highlight();
+				cells[game.WinningLine[0]].Highlight();
+				cells[game.WinningLine[1]].Highlight();
+				cells[game.WinningLine[2]].Highlight();
 			}
 
 			OnGameOver?.Invoke();
@@ -111,6 +113,17 @@ namespace AllTheClassics.TicTacToe
 
 			// Set board to interactable
 			canvasGroup.interactable = true;
+		}
+
+		public void ResetMarkAt(int index)
+		{
+			cells[index].ResetMark();
+		}
+
+		public void SetEndless(bool endless)
+		{
+			isEndless = endless;
+			game.IsEndless = endless;
 		}
 	}
 }
