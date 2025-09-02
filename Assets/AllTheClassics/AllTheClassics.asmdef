@@ -1,7 +1,10 @@
 {
     "name": "AllTheClassics",
     "rootNamespace": "AllTheClassics",
-    "references": [],
+    "references": [
+        "GUID:135236e3a8588e24ebbaa763b87fb6f1",
+        "GUID:add06c759afaeba45a821f3113eaa5e9"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

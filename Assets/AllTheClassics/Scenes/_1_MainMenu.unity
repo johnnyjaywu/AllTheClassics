@@ -169,10 +169,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fd2cdc74be36cb40a90a85cf64f48ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_selectables:
+  selectables:
   - {fileID: 2088187283}
-  m_firstSelected: {fileID: 0}
-  m_inputActionReference: {fileID: -8784545083839296357, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  firstSelected: {fileID: 0}
+  inputActionReference: {fileID: -8784545083839296357, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
 --- !u!1 &140732815
 GameObject:
   m_ObjectHideFlags: 0
@@ -1444,13 +1444,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fd2cdc74be36cb40a90a85cf64f48ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_selectables:
+  selectables:
   - {fileID: 1555635319}
   - {fileID: 847242415}
   - {fileID: 1070123616}
   - {fileID: 634161873}
-  m_firstSelected: {fileID: 0}
-  m_inputActionReference: {fileID: -8784545083839296357, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  firstSelected: {fileID: 0}
+  inputActionReference: {fileID: -8784545083839296357, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
 --- !u!1 &783435233
 GameObject:
   m_ObjectHideFlags: 0
@@ -2875,6 +2875,7 @@ GameObject:
   - component: {fileID: 1555635321}
   - component: {fileID: 1555635320}
   - component: {fileID: 1555635319}
+  - component: {fileID: 1555635322}
   m_Layer: 5
   m_Name: Button_TicTacToe
   m_TagString: Untagged
@@ -2945,7 +2946,20 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 626702524}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1555635322}
+        m_TargetAssemblyTypeName: ContentContent.SceneManagement.SceneNavigator,
+          ContentContent.SceneManagement
+        m_MethodName: GoToScene
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1555635320
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2984,6 +2998,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1555635317}
   m_CullTransparentMesh: 1
+--- !u!114 &1555635322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1555635317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d9ae719bb08e77449aa3930a359c592, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: ContentContent.SceneManagement::ContentContent.SceneManagement.SceneNavigator
 --- !u!1 &1583592173
 GameObject:
   m_ObjectHideFlags: 0
@@ -3309,7 +3335,7 @@ GameObject:
   - component: {fileID: 1944015409}
   - component: {fileID: 1944015410}
   m_Layer: 5
-  m_Name: Menu_Main
+  m_Name: Menu_Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3348,12 +3374,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fd2cdc74be36cb40a90a85cf64f48ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_selectables:
+  selectables:
   - {fileID: 900759371}
   - {fileID: 564632867}
   - {fileID: 649458133}
-  m_firstSelected: {fileID: 0}
-  m_inputActionReference: {fileID: -8784545083839296357, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  firstSelected: {fileID: 0}
+  inputActionReference: {fileID: -8784545083839296357, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
 --- !u!1 &2088187281
 GameObject:
   m_ObjectHideFlags: 0
