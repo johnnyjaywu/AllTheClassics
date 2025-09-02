@@ -1,9 +1,13 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace AllTheClassics.TicTacToe
 {
+	/// <summary>
+	/// A view-view-model class handling UI visual and click event of a Tic Tac Toe cell
+	/// </summary>
 	[RequireComponent(typeof(Button))]
 	public class TicTacToeCell : MonoBehaviour
 	{
@@ -14,12 +18,15 @@ namespace AllTheClassics.TicTacToe
 		[SerializeField]
 		private GameObject markX;
 
+		public UnityEvent OnResetRequested;
+		public UnityEvent OnHighlightRequested;
+
 		public TicTacToe.Mark CurrentMark { get; private set; }
-		public event Action<TicTacToeCell> ButtonClickEvent;
+		public event Action<TicTacToeCell> OnCellClicked;
 
 		private void Awake()
 		{
-			GetComponent<Button>().onClick.AddListener(() => { ButtonClickEvent?.Invoke(this); });
+			GetComponent<Button>().onClick.AddListener(() => { OnCellClicked?.Invoke(this); });
 			ResetMark();
 		}
 
@@ -28,6 +35,7 @@ namespace AllTheClassics.TicTacToe
 			CurrentMark = TicTacToe.Mark.None;
 			markO.SetActive(false);
 			markX.SetActive(false);
+			OnResetRequested?.Invoke();
 		}
 
 		public void SetMark(TicTacToe.Mark mark)
@@ -35,6 +43,11 @@ namespace AllTheClassics.TicTacToe
 			markO.SetActive(mark == TicTacToe.Mark.O ? true : false);
 			markX.SetActive(mark == TicTacToe.Mark.X ? true : false);
 			CurrentMark = mark;
+		}
+
+		public void Highlight()
+		{
+			OnHighlightRequested?.Invoke();
 		}
 	}
 }
