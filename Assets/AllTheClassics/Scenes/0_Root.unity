@@ -150,7 +150,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: ContentContent.SceneManagement::ContentContent.SceneManagement.SceneManager
   startScene: 1
   autoLoadStartScene: 1
-  mainMenuScene: 1
 --- !u!4 &1532334546
 Transform:
   m_ObjectHideFlags: 0

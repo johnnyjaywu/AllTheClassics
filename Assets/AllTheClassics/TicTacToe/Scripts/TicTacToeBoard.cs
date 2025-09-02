@@ -9,9 +9,6 @@ namespace AllTheClassics.TicTacToe
 	[RequireComponent(typeof(CanvasGroup))]
 	public class TicTacToeBoard : MonoBehaviour
 	{
-		//[SerializeField]
-		//private TicTacToeCell cellPrefab;
-
 		[SerializeField]
 		private List<TicTacToeCell> cells = new List<TicTacToeCell>();
 
@@ -23,24 +20,13 @@ namespace AllTheClassics.TicTacToe
 
 		private CanvasGroup canvasGroup;
 
-		//public Mark CurrentPlayerMark { get; private set; }
-		//private Mark[,] currentBoard = new Mark[3, 3];
-		private TicTacToe game = new TicTacToe();
+		private TicTacToe game;
 
 		private void Awake()
 		{
 			canvasGroup = GetComponent<CanvasGroup>();
+			game = new TicTacToe();
 			Restart();
-
-			// Create cells
-			//for (int i = 0; i < 9; i++)
-			//{
-			//	var cell = Instantiate(cellPrefab);
-			//	cell.name = $"Cell_{i}";
-			//	cell.transform.SetParent(transform, false);
-			//	cells.Add(cell);
-			//	cell.ButtonClickEvent += CellButtonClickEvent;
-			//}
 
 			// Initialize Cells
 			foreach (var cell in cells)
