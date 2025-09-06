@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 namespace ContentContent.Core
@@ -26,6 +27,24 @@ namespace ContentContent.Core
 		public static bool HasComponent<T>(this GameObject gameObject) where T : MonoBehaviour
 		{
 			return gameObject.GetComponent<T>() != null;
+		}
+
+		/// <summary>
+		/// Destroy all children of this game object
+		/// </summary>
+		/// <param name="t"></param>
+		public static void DestroyChildren(this GameObject gameObject)
+		{
+			gameObject.transform.Cast<Transform>().ToList().ForEach(child => Object.Destroy(child.gameObject));
+		}
+
+		/// <summary>
+		/// DestroyImmediate all children of this game object
+		/// </summary>
+		/// <param name="t"></param>
+		public static void DestroyChildrenImmediate(this GameObject gameObject)
+		{
+			gameObject.transform.Cast<Transform>().ToList().ForEach(child => Object.DestroyImmediate(child.gameObject));
 		}
 
 		/// <summary>

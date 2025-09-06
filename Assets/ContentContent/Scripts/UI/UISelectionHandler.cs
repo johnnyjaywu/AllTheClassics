@@ -3,11 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
-using UnityEngine.UIElements.InputSystem;
 
 namespace ContentContent.UI
 {
@@ -16,53 +14,71 @@ namespace ContentContent.UI
 	/// </summary>
 	public class UISelectionHandler : MonoBehaviour
 	{
-		[Header("References")]
-
-		[ContextMenuItem("Find Selectables in children", "FindAllSelectablesInChildren")]
-		[Tooltip("Reference all <Selectable> elements that you want to be able to navigate to")]
-		[SerializeField] protected List<Selectable> selectables = new List<Selectable>();
-
-		[Tooltip("The first selected element for this menu, default to first item in the referenced list")]
+		[Tooltip("The first selected element for this menu, default to first item in the selectable list")]
 		[SerializeField] protected Selectable firstSelected;
 
 		[Tooltip("The input action we are listening to (i.e. UI/Navigate)")]
 		[SerializeField] protected InputActionReference inputActionReference;
 
+		[SerializeField, ContextMenuItem("Find selectables in children", "FindAllSelectablesInChildren")]
+		protected List<Selectable> selectables = new List<Selectable>();
+
 		protected Selectable lastSelected;
 
 		public virtual void Awake()
 		{
-			if (firstSelected == null)
-				firstSelected = selectables.Count > 0 ? selectables[0] : null;
-
-			lastSelected = firstSelected;
-			foreach (var selectable in selectables)
-			{
-				AddSelectionListeners(selectable);
-			}
+			FindAllSelectablesInChildren();
 		}
 
 		public virtual void OnEnable()
 		{
 			inputActionReference.action.performed += InputAction_Performed;
-			StartCoroutine(SelectAfterDelay(firstSelected.gameObject));
-		}
-
-		protected virtual IEnumerator SelectAfterDelay(GameObject target)
-		{
-			yield return null;
-			if (target !=  null)
-				EventSystem.current.SetSelectedGameObject(target);
+			SelectPrevious();
 		}
 
 		public virtual void OnDisable()
 		{
 			inputActionReference.action.performed -= InputAction_Performed;
 		}
-		
+
+		public void FindAllSelectablesInChildren()
+		{
+			selectables = GetComponentsInChildren<Selectable>(true).ToList();
+			foreach (var selectable in selectables)
+			{
+				AddSelectionListeners(selectable);
+			}
+			firstSelected = selectables.Count > 0 ? selectables[0] : null;
+			lastSelected = firstSelected;
+			SelectDefault();
+		}
+
+		public void SelectDefault()
+		{
+			if (firstSelected == null)
+				return;
+
+			SetSelectedDelayed(firstSelected.gameObject);
+		}
+
+		public void SelectPrevious()
+		{
+			if (lastSelected == null)
+				SelectDefault();
+
+			SetSelectedDelayed(lastSelected.gameObject);
+		}
+
 		public void SetSelectedDelayed(GameObject target)
 		{
 			StartCoroutine(SelectAfterDelay(target));
+		}
+
+		protected virtual IEnumerator SelectAfterDelay(GameObject target)
+		{
+			yield return null;
+			if (target != null)
+				EventSystem.current.SetSelectedGameObject(target);
 		}
 
 		protected virtual void AddSelectionListeners(Selectable selectable)
@@ -147,11 +163,6 @@ namespace ContentContent.UI
 			{
 				EventSystem.current.SetSelectedGameObject(lastSelected.gameObject);
 			}
-		}
-
-		private void FindAllSelectablesInChildren()
-		{
-			selectables = GetComponentsInChildren<Selectable>().ToList();
 		}
 	}
 }
