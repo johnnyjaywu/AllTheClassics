@@ -100,3 +100,4 @@ InitTestScene*.unity*
 
 # Samples folder
 /[Ss]amples/
+*[Ss]amples.meta
