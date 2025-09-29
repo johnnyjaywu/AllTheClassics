@@ -99,5 +99,5 @@ InitTestScene*.unity*
 /[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
 
 # Samples folder
-/[Ss]amples/
+*/[Ss]amples/
 *[Ss]amples.meta
